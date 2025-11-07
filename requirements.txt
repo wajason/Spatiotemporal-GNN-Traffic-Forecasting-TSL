@@ -1,0 +1,53 @@
+# 專案環境精確套件清單
+# Python Version: 3.11.14
+# CUDA Version: 12.1 (為確保 PyTorch 和 PyG 兼容性，建議在新環境中也安裝此版本或兼容版本)
+
+# Core Deep Learning Libraries
+torch==2.5.1+cu121
+pytorch-lightning==2.5.5
+torchmetrics==1.8.2
+torchvision==0.20.1+cu121
+torchaudio==2.5.1+cu121
+
+# Graph Neural Network Libraries
+torch-geometric==2.7.0
+
+# PyG Related Dependencies (Compiled for CUDA 12.1 / PyTorch 2.5)
+torch_cluster==1.6.3+pt25cu121
+torch_scatter==2.1.2+pt25cu121
+torch_sparse==0.6.18+pt25cu121
+torch_spline_conv==1.2.2+pt25cu121
+
+# Spatiotemporal Library (Installed from specific Git commit, MUST KEEP)
+torch_spatiotemporal @ git+https://github.com/TorchSpatiotemporal/tsl.git@30bad2227f5dba285e050c6f7b4f69cc969c8462
+
+# Data Processing and Scientific Computing
+numpy==1.26.4
+pandas==2.0.3
+scipy==1.16.3
+scikit-learn==1.7.2
+matplotlib==3.10.7
+seaborn==0.13.2
+tqdm==4.67.1
+
+# Other essential packages (已清理本地路徑)
+absl-py==2.3.1
+aiohttp==3.13.2
+attrs==25.4.0
+certifi==2025.10.5
+cycler==0.12.1
+einops==0.8.1
+filelock==3.19.1
+grpcio==1.76.0
+Jinja2==3.1.6
+joblib==1.5.2
+Markdown==3.9
+MarkupSafe==2.1.5
+networkx==3.5
+pillow==11.3.0
+protobuf==6.33.0
+pyparsing==3.2.5
+requests==2.32.5
+PyYAML==6.0.3
+tensorboard==2.20.0
+Werkzeug==3.1.3
