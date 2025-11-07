@@ -1,35 +1,80 @@
-# 🚀 Spatiotemporal GNN Performance Benchmark: Traffic Forecasting
+# 🚦 Spatiotemporal GNNs for Traffic Forecasting — Reproducible Benchmark & Deep Dive
+[![GitHub Stars](https://img.shields.io/github/stars/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&logo=github&color=4C8EDA)](https://github.com/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&logo=github&color=4C8EDA)](https://github.com/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&color=4C8EDA)](https://github.com/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL/issues)
+[![GitHub License](https://img.shields.io/github/license/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&color=4C8EDA)](./LICENSE)
 
-[![GitHub Repo stars](https://img.shields.io/badge/Stars-Like%20This%20Repo-brightgreen.svg?style=social&logo=github)](https://github.com/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.11+-4C8EDA?style=for-the-badge&logo=python&logoColor=white)]()
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)]()
+[![PyG](https://img.shields.io/badge/PyG-2.x-4C8EDA?style=for-the-badge&logo=pyg&logoColor=white)]()
+[![TSL Framework](https://img.shields.io/badge/TSL-Library-4C8EDA?style=for-the-badge)](https://torch-spatiotemporal.readthedocs.io/)
 
-## 💡 Project Overview
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Run%20in-Codespaces-4C8EDA?style=for-the-badge&logo=github)](https://codespaces.new/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL)
 
-This repository hosts a reproducible benchmark comparing the performance and efficiency of two major **Spatiotemporal Graph Neural Network (STGNN)** paradigms for the **Metr-LA Traffic Flow Forecasting** task:
 
-1. **STGNN (TimeThenSpaceModel)**: A **Decoupled** architecture where temporal feature extraction precedes spatial aggregation.
-2. **DCRNN (Diffusion Convolutional Recurrent Neural Network)**: A **Coupled** architecture where time and space processing are interwoven at every step.
+This repository provides a clean and fully reproducible benchmark comparing two influential classes of **Spatiotemporal Graph Neural Networks** for traffic forecasting:
 
-The project is built using the robust [Torch Spatiotemporal (tsl)](https://torch-spatiotemporal.readthedocs.io/) library, which integrates PyTorch, PyG, and PyTorch Lightning to streamline STGNN development and experimentation.
+- **Time-then-Space STGNN** (Temporal compression followed by graph-based spatial aggregation)
+- **DCRNN** (Diffusion Convolutional Recurrent Neural Network; joint spatiotemporal processing)
+
+The project highlights how **model design philosophy** impacts forecasting behavior, computational efficiency, and generalization across prediction horizons — especially in real-world traffic systems such as **Metr-LA**.
+
+This is not just a "run-the-code" repo — it is a **concept-to-result walkthrough** designed for:
+- GNN / Spatiotemporal learning practitioners
+- Applied ML researchers
+- Students learning STGNN model design
+- Engineers preparing for real deployment on limited compute
+
+If this project helps you — ⭐ **Please consider starring the repo!**
 
 ---
 
-## 📊 Experimental Results and Performance Analysis
+## 🔍 Key Contributions
 
-We trained and tested both models on the Metr-LA dataset, predicting traffic speed for 60 minutes (12 time steps) into the future.
+| Contribution | Description |
+|-------------|-------------|
+| **Clear architectural comparison** | Directly contrasts *decoupled* (STGNN) vs. *coupled* (DCRNN) spatiotemporal learning strategies |
+| **Parameter efficiency study** | Shows how smaller STGNNs can achieve comparable accuracy with ~50% fewer parameters |
+| **Fully reproducible pipeline** | Environment, dataset, training, logging, and evaluation all included |
+| **Interpretable performance insights** | Short-horizon vs Long-horizon forecast differences are discussed instead of just reported |
 
-| **Metric** | **STGNN (TimeThenSpace)** | **DCRNN (DCRNNModel)** | **Performance Advantage** |
-| :--- | :--- | :--- | :--- |
-| **Test MAE (Overall)** | **3.3683** | 3.3737 | **STGNN (Marginal)** |
-| **Test MAPE (Overall)** | 0.0951 | **0.0939** | **DCRNN** |
-| **Test MAE @ 60 mins (Long-Term)** | 4.1128 | **4.1013** | **DCRNN** |
-| **Training Speed** (it/s) | **~70.96** | ~7.22 | **STGNN (Approx. 10x Faster)** |
+---
 
-### 🔍 Conclusion and Architectural Insights
+## 📊 Results Summary (Metr-LA, 60-min Forecasting)
 
-* **Efficiency Winner**: **STGNN** demonstrated a massive advantage in training speed. Its **decoupled** structure requires the costly Graph Neural Network (GNN) operation to be performed only **once**, significantly reducing computational overhead per training step, making it ideal for large-scale or iterative experiments.
+| Model | Params | Train Speed | MAE (Avg) | MAE @ 60min | Notes |
+|------|--------|-------------|-----------|-------------|-------|
+| **STGNN (TimeThenSpace)** | 19.3K | **~10× faster** | **3.368** | 4.113 | Strong short-term temporal representation |
+| **DCRNN** | 42.4K | Slower | 3.374 | **4.101** | Strong long-horizon stability via recurrent diffusion |
 
-* **Long-Term Dynamics**: The **coupled** design of DCRNN allows its hidden state to continuously incorporate spatial information during temporal evolution. This dynamic, step-by-step spatial adjustment gives DCRNN a slight edge in the **long-term 60-minute forecast accuracy**.
+**Interpretation**  
+- STGNN excels in **temporal abstraction efficiency**, making it ideal for real-time or resource-constrained deployments.  
+- DCRNN retains **slightly better long-term temporal alignment** due to recurrent spatial-state integration.
+
+---
+
+## 🧱 Architecture Insight (Why This Matters)
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/01a99494-2eef-4eef-ba5d-1bd5bd860805" />
+
+**STGNN ("Time → Space")**  
+Compresses temporal dynamics first → applies graph convolution once → *computationally lean*.  
+Best when **time patterns dominate** signal structure.
+
+**DCRNN (Time ↔ Space Coupled)**  
+Applies graph diffusion inside every recurrent step → *cost heavier but spatially adaptive*.  
+Best when **network topology strongly influences future states**.
+
+---
+
+## 🧪 Training & Reproducibility
+
+This project uses **Torch Spatiotemporal (tsl)** with:
+- PyTorch Lightning for training loops
+- PyTorch Geometric for GNN kernels
+- Automatic data downloading & preprocessing
+
+**Environment is fully version-locked** in `requirements.txt`  
+→ This ensures repeatable runs — no dependency roulette.
 
 ---
 
@@ -84,8 +129,16 @@ pip install -r requirements.txt
 ```bash
 jupyter notebook
 ```
-Run the Notebook: Open the [TUTORIAL]_Spatiotemporal_Graph_Neural_Networks_with_tsl.ipynb file and execute all cells sequentially.
 
-The Metr-LA dataset will be downloaded and processed automatically.
-
+Run the Notebook: Open the [TUTORIAL]_Spatiotemporal_Graph_Neural_Networks_with_tsl.ipynb file and execute all cells sequentially.  
+The Metr-LA dataset will be downloaded and processed automatically.  
 The models will train, save the best checkpoint, and run the final comparative evaluation.
+
+
+## ⭐ If You Find This Useful
+
+This project took effort to organize & document clearly.  
+If it helps you learn, research, or build your own system:
+
+→ **Please give the repository a Star**  
+It really helps visibility and motivates future updates ❤️
