@@ -4,9 +4,9 @@
 [![GitHub Issues](https://img.shields.io/github/issues/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&color=4C8EDA)](https://github.com/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL/issues)
 [![GitHub License](https://img.shields.io/github/license/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL?style=for-the-badge&color=4C8EDA)](./LICENSE)
 
-[![Python](https://img.shields.io/badge/Python-3.11+-4C8EDA?style=for-the-badge&logo=python&logoColor=white)]()
+[![Python](https://img.shields.io/badge/Python-3.11.14+-4C8EDA?style=for-the-badge&logo=python&logoColor=white)]()
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)]()
-[![PyG](https://img.shields.io/badge/PyG-2.x-4C8EDA?style=for-the-badge&logo=pyg&logoColor=white)]()
+[![PyG](https://img.shields.io/badge/PyG-2.7.0-4C8EDA?style=for-the-badge&logo=pyg&logoColor=white)]()
 [![TSL Framework](https://img.shields.io/badge/TSL-Library-4C8EDA?style=for-the-badge)](https://torch-spatiotemporal.readthedocs.io/)
 
 [![Open in GitHub Codespaces](https://img.shields.io/badge/Run%20in-Codespaces-4C8EDA?style=for-the-badge&logo=github)](https://codespaces.new/wajason/Spatiotemporal-GNN-Traffic-Forecasting-TSL)
